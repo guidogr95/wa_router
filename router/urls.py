@@ -1,5 +1,3 @@
-# wa_router/router/urls.py
-
 from django.urls import path
 from . import views
 
