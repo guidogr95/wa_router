@@ -29,7 +29,7 @@ services:
     volumes:
       - .:/app
     ports:
-      - "8000:80"
+      - "8000:8000"
     environment:
       - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
       - FIELD_ENCRYPTION_KEY=${FIELD_ENCRYPTION_KEY}
