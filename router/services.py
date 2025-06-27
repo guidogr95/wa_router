@@ -42,7 +42,6 @@ def process_and_forward_request(
             target_url = rule.environment.target_url
             secure_vars = rule.environment.vendor.secure_variables
         except RoutingRule.DoesNotExist:
-            # 3. If no specific rule, find the vendor's default environment
             try:
                 default_env = Environment.objects.select_related("vendor").get(
                     vendor__code=vendor_code, is_default=True
@@ -59,16 +58,13 @@ def process_and_forward_request(
             cache_key, {"target_url": target_url, "secure_variables": secure_vars}
         )
 
-    # 5. Prepare and forward the request
     forwarding_headers = {
         "Content-Type": "application/json",
         "User-Agent": "W-Router/1.0",
     }
 
-    # Add secure variables as headers if they exist
     if secure_vars:
         try:
-            # secure_vars is stored as an encrypted JSON string
             decrypted_vars = json.loads(secure_vars)
             if isinstance(decrypted_vars, dict):
                 forwarding_headers.update(decrypted_vars)
@@ -77,20 +73,17 @@ def process_and_forward_request(
                 f"Could not parse secure_variables for vendor '{vendor_code}'."
             )
 
-    # 6. Make the forwarding request and handle errors
     try:
         response = requests.post(
             target_url,
             data=json.dumps(payload),
             headers=forwarding_headers,
-            timeout=10,  # 10-second timeout
+            timeout=10,
         )
-        response.raise_for_status()  # Raise an exception for 4xx or 5xx status codes
+        response.raise_for_status()
         return response
     except requests.exceptions.RequestException as e:
         logger.error(
             f"Failed to forward request for vendor '{vendor_code}' to {target_url}. Error: {e}"
         )
-        # In a real scenario, you might want to return a custom error response
-        # For now, we return None, which will result in a 400 from the view
         return None
