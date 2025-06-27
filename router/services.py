@@ -68,7 +68,7 @@ def process_and_forward_request(
                 return None
 
         cache.set(
-            cache_key, {"target_url": target_url, "secure_variables": secure_vars}
+            cache_key, {"target_url": target_url, "secure_variables": secure_vars, "env_name": env_name, "env_code": env_code}
         )
 
     forwarding_headers = {
