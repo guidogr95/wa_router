@@ -1,0 +1,12 @@
+.env
+.env.local
+.env.dev
+.env.prod
+__pycache__
+.history
+all_packages.txt
+.venv
+.mypy_cache
+.devcontainer
+.vscode
+staticfiles
