@@ -44,6 +44,27 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    labels:
+      - "dozzle.name=WhatsApp Router"
+      - "dozzle.group=wa_router"
+
+  dozzle:
+    container_name: wa_router_dozzle
+    image: amir20/dozzle:latest
+    ports:
+      - "127.0.0.1:8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - app-network
+    environment:
+      DOZZLE_LEVEL: info
+      DOZZLE_TAILSIZE: 300
+      DOZZLE_NO_ANALYTICS: true
+    restart: unless-stopped
+    labels:
+      - "dozzle.ignore=true"
+
 
 networks:
   app-network:
