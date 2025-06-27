@@ -20,6 +20,12 @@ ALLOWED_HOSTS = []
 # Add any specific hosts from os.getenvironment variable
 if os.getenv('DJANGO_ALLOWED_HOSTS', default=''):
     ALLOWED_HOSTS += os.getenv('DJANGO_ALLOWED_HOSTS', default='').split(',')
+    
+CSRF_TRUSTED_ORIGINS = []
+
+# Add any specific hosts from os.getenvironment variable
+if os.getenv('DJANGO_CSRF_TRUSTED_ORIGINS', default=''):
+    CSRF_TRUSTED_ORIGINS += os.getenv('DJANGO_CSRF_TRUSTED_ORIGINS', default='').split(',')
 
 # Application definition
 INSTALLED_APPS = [
