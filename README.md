@@ -95,6 +95,30 @@ def get_wa_id_from_payload(payload):
 - List views with filtering and search capabilities
 - Proper field display and relationships
 
+#### Dozzle Integration
+The system includes **Dozzle** for real-time Docker container log monitoring:
+
+**Features:**
+- Real-time log streaming from all containers (Django, PostgreSQL, Dozzle)
+- Web-based interface with file-based authentication
+- Search and filter capabilities across all container logs
+- Auto-refresh functionality for continuous monitoring
+- Secure access through `users.yml` configuration
+
+**Authentication:**
+The logging system uses Dozzle's simple file-based authentication configured in `./dozzle/users.yml`. Users and passwords are managed through this file rather than environment variables.
+
+**Authentication Setup:**
+Create `./dozzle/users.yml` file with your user credentials:
+```yaml
+users:
+  admin:
+    name: "Administrator"
+    password: "your_secure_password"
+```
+
+All log access is protected by this authentication system, ensuring secure monitoring of your WhatsApp Router infrastructure.
+
 ## Use Cases
 
 ### Multi-Environment Deployment
