@@ -140,15 +140,6 @@ Routing Rules for vendor "acme-corp":
 }
 ```
 
-## Technical Stack
-
-- **Framework**: Django 5.2.3
-- **Database**: PostgreSQL with psycopg2
-- **Encryption**: django-encrypted-model-fields
-- **HTTP Client**: requests library
-- **Deployment**: Docker with Gunicorn
-- **Environment Management**: python-dotenv
-
 ## Configuration
 
 The system uses environment variables for configuration:
