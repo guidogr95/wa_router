@@ -63,11 +63,12 @@ services:
     networks:
       - app-network
     environment:
-      DOZZLE_AUTH_PROVIDER: "simple"
-      DOZZLE_LEVEL: info
-      DOZZLE_TAILSIZE: 300
-      DOZZLE_NO_ANALYTICS: "true"
-      DOZZLE_BASE: "/dozzle"
+      - DOZZLE_AUTH_PROVIDER=simple
+      - DOZZLE_LEVEL=info
+      - DOZZLE_TAILSIZE=300
+      - DOZZLE_NO_ANALYTICS=true
+      - DOZZLE_BASE=/logs
+      - DOZZLE_HOSTNAME=${DOZZLE_HOSTNAME}
     restart: unless-stopped
     labels:
       - "dozzle.ignore=true"
