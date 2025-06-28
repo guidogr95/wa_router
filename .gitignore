@@ -10,3 +10,5 @@ all_packages.txt
 .devcontainer
 .vscode
 staticfiles
+users.yml
+dozzle/users.yml

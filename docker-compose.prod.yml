@@ -57,9 +57,14 @@ services:
       - "127.0.0.1:8080:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
+      - dozzle:/data
+    secrets:
+      users:
+        file: users.yml
     networks:
       - app-network
     environment:
+      DOZZLE_AUTH_PROVIDER: "simple"
       DOZZLE_LEVEL: info
       DOZZLE_TAILSIZE: 300
       DOZZLE_NO_ANALYTICS: "true"
