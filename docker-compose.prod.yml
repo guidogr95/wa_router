@@ -67,6 +67,7 @@ services:
       DOZZLE_LEVEL: info
       DOZZLE_TAILSIZE: 300
       DOZZLE_NO_ANALYTICS: "true"
+      DOZZLE_BASE: "/dozzle"
     restart: unless-stopped
     labels:
       - "dozzle.ignore=true"
