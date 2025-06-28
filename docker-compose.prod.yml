@@ -57,10 +57,9 @@ services:
       - "127.0.0.1:8080:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - dozzle:/data
+      - ./dozzle:/data
     secrets:
-      users:
-        file: users.yml
+      - users
     networks:
       - app-network
     environment:
@@ -71,7 +70,10 @@ services:
     restart: unless-stopped
     labels:
       - "dozzle.ignore=true"
-    
+      
+secrets:
+  users:
+    file: ./dozzle/users.yml    
 
 networks:
   app-network:
