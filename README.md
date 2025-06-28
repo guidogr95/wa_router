@@ -84,18 +84,12 @@ def get_wa_id_from_payload(payload):
 - CSRF exemption for webhook endpoints (required for external API calls)
 - Environment variable configuration for secrets
 
-### Logging
-- Comprehensive logging with different levels for various components
-- Structured logging using custom `log_object` utility
-- Error logging to rotating file handlers
-- Console logging for general information
-
 ### Admin Interface
 - Django admin integration for managing vendors, environments, and routing rules
 - List views with filtering and search capabilities
 - Proper field display and relationships
 
-#### Dozzle Integration
+#### Logging with Dozzle Integration
 The system includes **Dozzle** for real-time Docker container log monitoring:
 
 **Features:**
