@@ -89,7 +89,7 @@ def get_wa_id_from_payload(payload):
 - List views with filtering and search capabilities
 - Proper field display and relationships
 
-#### Logging with Dozzle Integration
+### Logging with Dozzle Integration
 The system includes **Dozzle** for real-time Docker container log monitoring:
 
 **Features:**
