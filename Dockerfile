@@ -22,6 +22,6 @@ RUN chmod +x ./entrypoint.sh
 ENV DJANGO_SETTINGS_MODULE=wa_router.settings 
 
 
-EXPOSE 8000
+EXPOSE 5000
 
-CMD ["gunicorn", "fusionCart.wsgi:application", "--bind", "0.0.0.0:8000"] 
+CMD ["gunicorn", "fusionCart.wsgi:application", "--bind", "0.0.0.0:5000"] 

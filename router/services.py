@@ -6,9 +6,17 @@ from django.core.cache import cache
 from django.http.request import (
     HttpHeaders
 )
-from .models import RoutingRule, Environment
+
+from wa_router.utils.logging_utils import log_object
+from .models import ProcessedMessage, RoutingRule, Environment
 
 logger = logging.getLogger("router")
+
+def get_message_id_from_payload(payload: Dict[str, Any]) -> Optional[str]:
+    try:
+        return payload["entry"][0]["changes"][0]["value"]["messages"][0]["id"]
+    except (KeyError, IndexError):
+        return None
 
 
 def get_wa_id_from_payload(payload: Dict[str, Any]) -> Optional[str]:
@@ -23,12 +31,29 @@ def get_wa_id_from_payload(payload: Dict[str, Any]) -> Optional[str]:
 def process_and_forward_request(
     vendor_code: str, payload: Dict[str, Any], headers: HttpHeaders
 ) -> Optional[requests.Response]:
+    message_id = get_message_id_from_payload(payload)
+    if not message_id:
+        return None
+    
+    if ProcessedMessage.objects.filter(meta_id=message_id).exists():
+        logger.info(f"🔄 DUPLICATE MESSAGE - Skipping already processed message {message_id}")
+        return None
+    
+    
     wa_id = get_wa_id_from_payload(payload)
     if not wa_id:
-        logger.warning(
-            f"Could not extract wa_id from payload for vendor '{vendor_code}'."
-        )
         return None
+    
+    try:
+        ProcessedMessage.objects.create(
+            meta_id=message_id,
+            vendor_code=vendor_code,
+            wa_id=wa_id
+        )
+        logger.info(f"📋 Recorded new message {message_id} from {wa_id}")
+    except Exception as e:
+        logger.error(f"⚠️  Failed to record message {message_id}: {e}")
+        
 
     cache_key = f"rule:{vendor_code}:{wa_id}"
     cached_rule = cache.get(cache_key)

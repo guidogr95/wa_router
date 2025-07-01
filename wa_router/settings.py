@@ -82,7 +82,6 @@ DATABASES = {
     }
 }
 
-print(f"--- DATABASE DEBUG --- HOST: {os.getenv('POSTGRES_HOST')}, USER: {os.getenv('POSTGRES_USER')}, DB: {os.getenv('POSTGRES_DB')} --- PORT: {os.getenv('POSTGRES_PORT')}")
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [

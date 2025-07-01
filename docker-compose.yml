@@ -22,13 +22,13 @@ services:
   web:
     build: .
     container_name: w_router_web
-    command: python manage.py runserver 0.0.0.0:8000
+    command: python manage.py runserver 0.0.0.0:5000
     networks:
       - app-network
     volumes:
       - .:/app
     ports:
-      - "8000:8000"
+      - "5000:5000"
     environment:
       - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
       - FIELD_ENCRYPTION_KEY=${FIELD_ENCRYPTION_KEY}

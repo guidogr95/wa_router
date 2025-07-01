@@ -3,6 +3,18 @@ from django.core.exceptions import ValidationError
 from encrypted_model_fields.fields import EncryptedTextField
 
 
+class ProcessedMessage(models.Model):
+    meta_id = models.CharField(max_length=255, unique=True, db_index=True)
+    vendor_code = models.CharField(max_length=50)
+    wa_id = models.CharField(max_length=20)
+    processed_at = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        indexes = [
+            models.Index(fields=['meta_id']),
+            models.Index(fields=['processed_at']),
+        ]
+    
 class Vendor(models.Model):
     name = models.CharField(max_length=100)
     code = models.SlugField(
