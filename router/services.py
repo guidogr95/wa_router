@@ -23,6 +23,7 @@ def get_wa_id_from_payload(payload: Dict[str, Any]) -> Optional[str]:
     try:
         wa_id = payload["entry"][0]["changes"][0]["value"]["messages"][0]["from"]
         logger.info(f"✅ Successfully extracted wa_id: {wa_id}")
+        log_object(payload, "Valid incoming payload")
         return wa_id
     except (KeyError, IndexError):
         return None
