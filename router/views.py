@@ -33,10 +33,10 @@ def meta_webhook_receiver(request: HttpRequest, vendor_code: str) -> HttpRespons
         if response:
             return HttpResponse(
                 content=response.content,
-                status=response.status_code,
+                status=200,
                 content_type=response.headers.get("Content-Type"),
             )
 
-        return HttpResponse("Could not process request.", status=400)
+        return HttpResponse("Could not process request.", status=200)
 
     return HttpResponse("Method not allowed", status=405)
